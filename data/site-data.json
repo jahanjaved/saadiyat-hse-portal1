@@ -1,0 +1,22 @@
+{
+  "inspections": [
+    {
+      "id": "INS-001",
+      "cluster": "2A"
+    },
+    {
+      "id": "INS-002",
+      "cluster": "4B"
+    }
+  ],
+  "actions": [
+    {
+      "id": "ACT-001",
+      "status": "Open"
+    },
+    {
+      "id": "ACT-002",
+      "status": "Closed"
+    }
+  ]
+}

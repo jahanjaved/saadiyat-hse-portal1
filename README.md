@@ -1,16 +1,12 @@
-# Saadiyat Lagoons HSE Portal
+# Saadiyat HSE Portal (FINAL)
 
-This is the corrected GitHub-ready package.
+## How it works
+- Website reads data from: /data/site-data.json
+- Replace JSON when Excel updates
 
-## Correct structure
-- .github/workflows/deploy.yml
-- assets/styles.css
-- data/
-- scripts/app.js
-- source/
-- index.html
-- README.md
+## IMPORTANT
+Excel cannot load directly in GitHub Pages
+You must convert Excel → JSON
 
-## Important
-The folder must be `.github` with a dot at the beginning.
-If it becomes `_github`, GitHub Actions will not detect it.
+## Future
+We can automate Excel → JSON
