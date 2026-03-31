@@ -7,16 +7,30 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
-  <header style="background:#1f3c5a;color:white;padding:20px;">
-    <h1>Saadiyat Lagoons HSE Portal</h1>
-    <p>Website test is working</p>
+  <header class="topbar">
+    <div class="wrap">
+      <h1>Saadiyat Lagoons HSE Portal</h1>
+      <p>Live Management Dashboard</p>
+    </div>
   </header>
 
-  <main style="max-width:1200px;margin:auto;padding:20px;">
-    <section style="background:white;padding:20px;border-radius:10px;">
-      <h2>Test Page</h2>
-      <p>If you can see this, GitHub Pages is fixed.</p>
+  <main class="wrap">
+    <section class="card">
+      <h2>Dashboard</h2>
+      <div id="summary"></div>
+    </section>
+
+    <section class="card">
+      <h2>Inspections</h2>
+      <div id="inspections"></div>
+    </section>
+
+    <section class="card">
+      <h2>Actions</h2>
+      <div id="actions"></div>
     </section>
   </main>
+
+  <script src="scripts/app.js"></script>
 </body>
 </html>
