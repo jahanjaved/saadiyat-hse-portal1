@@ -1,1 +1,0 @@
-console.log("HSE system ready");
