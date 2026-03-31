@@ -1,12 +1,9 @@
-# Saadiyat HSE Portal (FINAL)
+# Saadiyat Lagoons HSE Portal
 
-## How it works
-- Website reads data from: /data/site-data.json
-- Replace JSON when Excel updates
+Simple GitHub Pages version using JSON data.
 
-## IMPORTANT
-Excel cannot load directly in GitHub Pages
-You must convert Excel → JSON
-
-## Future
-We can automate Excel → JSON
+## Files
+- index.html
+- assets/styles.css
+- scripts/app.js
+- data/site-data.json
