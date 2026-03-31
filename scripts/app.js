@@ -1,9 +1,15 @@
 fetch('data/site-data.json')
-  .then(res => res.json())
+  .then(res => {
+    if (!res.ok) {
+      throw new Error('Failed to load data/site-data.json');
+    }
+    return res.json();
+  })
   .then(data => {
-    document.getElementById('summary').innerHTML =
-      `<p>Total Inspections: ${data.inspections.length}</p>
-       <p>Total Actions: ${data.actions.length}</p>`;
+    document.getElementById('summary').innerHTML = `
+      <p><strong>Total Inspections:</strong> ${data.inspections.length}</p>
+      <p><strong>Total Actions:</strong> ${data.actions.length}</p>
+    `;
 
     let insp = '<table><tr><th>ID</th><th>Cluster</th></tr>';
     data.inspections.forEach(i => {
@@ -20,6 +26,8 @@ fetch('data/site-data.json')
     document.getElementById('actions').innerHTML = act;
   })
   .catch(err => {
-    document.getElementById('summary').innerHTML = '<p>Data failed to load.</p>';
+    document.getElementById('summary').innerHTML = `<p style="color:red;">${err.message}</p>`;
+    document.getElementById('inspections').innerHTML = '';
+    document.getElementById('actions').innerHTML = '';
     console.error(err);
   });
