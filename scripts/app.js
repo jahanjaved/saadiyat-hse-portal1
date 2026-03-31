@@ -1,0 +1,1 @@
+console.log("Corrected GitHub-ready HSE package loaded.");
