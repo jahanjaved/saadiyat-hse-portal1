@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Saadiyat Lagoons HSE Portal</title>
-<link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saadiyat Lagoons HSE Portal</title>
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+  <header class="topbar">
+    <div class="wrap">
+      <h1>Saadiyat Lagoons HSE Portal</h1>
+      <p>Live Management Dashboard</p>
+    </div>
+  </header>
 
-<header class="topbar">
-  <div class="wrap">
-    <h1>Saadiyat Lagoons HSE Portal</h1>
-    <p>Live Management Dashboard</p>
-  </div>
-</header>
+  <main class="wrap">
+    <section class="card">
+      <h2>Dashboard</h2>
+      <div id="summary"></div>
+    </section>
 
-<main class="wrap">
+    <section class="card">
+      <h2>Inspections</h2>
+      <div id="inspections"></div>
+    </section>
 
-<section class="card">
-  <h2>Dashboard</h2>
-  <div id="summary"></div>
-</section>
+    <section class="card">
+      <h2>Actions</h2>
+      <div id="actions"></div>
+    </section>
+  </main>
 
-<section class="card">
-  <h2>Inspections</h2>
-  <div id="inspections"></div>
-</section>
-
-<section class="card">
-  <h2>Actions</h2>
-  <div id="actions"></div>
-</section>
-
-</main>
-
-<script src="scripts/app.js"></script>
+  <script src="scripts/app.js"></script>
 </body>
 </html>
