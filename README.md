@@ -1,15 +1,17 @@
-# Saadiyat Lagoons HSE Portal — Fresh Step 1 Package
+# Saadiyat Lagoons HSE Portal
 
-This is the fresh restart package.
+This website reads the Excel file directly from SharePoint.
 
-## Included
+## How it works
+- Update the Excel file in SharePoint
+- Refresh the website
+- Latest workbook data appears automatically
+
+## Current structure
 - index.html
 - assets/styles.css
 - scripts/app.js
 - README.md
 
-## Purpose
-Step 1 creates a clean website base only.
-
-## Next Step
-Step 2 will connect your SharePoint / OneDrive Excel file so the website can read live workbook data.
+## Important
+The SharePoint link must stay valid and accessible.
