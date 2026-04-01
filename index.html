@@ -13,12 +13,12 @@
         <div class="brand-mark">HSE</div>
         <div>
           <strong>Saadiyat Lagoons</strong>
-          <span>Fresh Step 1 Setup</span>
+          <span>Live SharePoint Excel Portal</span>
         </div>
       </div>
       <nav class="topnav">
         <a href="#home">Home</a>
-        <a href="#next">Next Step</a>
+        <a href="#app-status">Workbook Data</a>
       </nav>
     </div>
   </header>
@@ -26,21 +26,22 @@
   <main class="wrap main-content">
     <section id="home" class="hero-card">
       <div>
-        <div class="eyebrow">Fresh restart</div>
+        <div class="eyebrow">Step 2 live setup</div>
         <h1>Saadiyat Lagoons HSE Website</h1>
         <p>
-          This is the fresh Step 1 package. It is clean, simple, and ready for the next step:
-          connecting your SharePoint Excel file.
+          This website reads your Excel workbook directly from SharePoint.
+          Update the Excel file, refresh the website, and the latest data will appear.
         </p>
       </div>
+
       <div class="hero-side">
         <div class="hero-box">
-          <span>Current stage</span>
-          <strong>Step 1 package ready</strong>
+          <span>Data source</span>
+          <strong>SharePoint Excel</strong>
         </div>
         <div class="hero-box">
-          <span>Next target</span>
-          <strong>Connect SharePoint Excel</strong>
+          <span>Update method</span>
+          <strong>Edit Excel, then refresh website</strong>
         </div>
       </div>
     </section>
@@ -48,32 +49,21 @@
     <section class="section-card">
       <div class="section-header">
         <div>
-          <div class="section-kicker">Included now</div>
-          <h2>Clean project structure</h2>
-        </div>
-      </div>
-      <ul class="clean-list">
-        <li>index.html</li>
-        <li>assets/styles.css</li>
-        <li>scripts/app.js</li>
-        <li>README.md</li>
-      </ul>
-    </section>
-
-    <section id="next" class="section-card">
-      <div class="section-header">
-        <div>
-          <div class="section-kicker">Next step</div>
-          <h2>What happens after this</h2>
+          <div class="section-kicker">Live workbook</div>
+          <h2>Excel Data</h2>
           <p>
-            In Step 2, we will connect your SharePoint Excel file so the website can read live workbook data.
+            All workbook sheets will load below automatically from your SharePoint file.
           </p>
         </div>
       </div>
-      <div id="app-status" class="status-box">Step 1 package loaded successfully.</div>
+
+      <div id="app-status" class="status-box">
+        Loading Excel data...
+      </div>
     </section>
   </main>
 
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script src="scripts/app.js"></script>
 </body>
 </html>
