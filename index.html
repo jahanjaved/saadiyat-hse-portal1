@@ -13,57 +13,27 @@
         <div class="brand-mark">HSE</div>
         <div>
           <strong>Saadiyat Lagoons</strong>
-          <span>Live SharePoint Excel Portal</span>
+          <span>Workbook Portal</span>
         </div>
       </div>
-      <nav class="topnav">
-        <a href="#home">Home</a>
-        <a href="#app-status">Workbook Data</a>
-      </nav>
+      <nav class="topnav" id="topnav"></nav>
     </div>
   </header>
 
   <main class="wrap main-content">
-    <section id="home" class="hero-card">
-      <div>
-        <div class="eyebrow">Step 2 live setup</div>
-        <h1>Saadiyat Lagoons HSE Website</h1>
-        <p>
-          This website reads your Excel workbook directly from SharePoint.
-          Update the Excel file, refresh the website, and the latest data will appear.
-        </p>
-      </div>
-
-      <div class="hero-side">
-        <div class="hero-box">
-          <span>Data source</span>
-          <strong>SharePoint Excel</strong>
+    <section id="home" class="section">
+      <div class="section-card summary-card">
+        <div class="summary-left">
+          <h1>Saadiyat Lagoons HSE Portal</h1>
+          <div class="summary-line" id="summaryLine"></div>
         </div>
-        <div class="hero-box">
-          <span>Update method</span>
-          <strong>Edit Excel, then refresh website</strong>
-        </div>
+        <div class="summary-right" id="summaryBoxes"></div>
       </div>
     </section>
 
-    <section class="section-card">
-      <div class="section-header">
-        <div>
-          <div class="section-kicker">Live workbook</div>
-          <h2>Excel Data</h2>
-          <p>
-            All workbook sheets will load below automatically from your SharePoint file.
-          </p>
-        </div>
-      </div>
-
-      <div id="app-status" class="status-box">
-        Loading Excel data...
-      </div>
-    </section>
+    <div id="sheetSections"></div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script src="scripts/app.js"></script>
 </body>
 </html>
