@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saadiyat Lagoons HSE Dashboard</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">HSE</div>
+        <div>
+          <h1>Saadiyat Lagoons</h1>
+          <p>Weekly KPI &amp; Gap Analysis</p>
+        </div>
+      </div>
+
+      <div class="nav-section">Overview</div>
+      <a class="nav-link active" href="index.html"><span>Home</span><span class="nav-pill">Start</span></a>
+      <a class="nav-link" href="dashboard.html"><span>Dashboards</span><span class="nav-pill">Live</span></a>
+
+      <div class="nav-section">Operations</div>
+      <a class="nav-link" href="inspections.html"><span>Weekly Inspections</span><span class="nav-pill">Site</span></a>
+      <a class="nav-link" href="capa.html"><span>CAPA Tracker</span><span class="nav-pill">Action</span></a>
+      <a class="nav-link" href="gap-analysis.html"><span>Gap Analysis</span><span class="nav-pill">Review</span></a>
+
+      <div class="nav-section">Planning</div>
+      <a class="nav-link" href="calendars.html"><span>Monthly Calendars</span><span class="nav-pill">Plan</span></a>
+      <a class="nav-link" href="data-explorer.html"><span>All Sheets Explorer</span><span class="nav-pill">Data</span></a>
+    </aside>
+
+    <main class="content">
+      <div class="topbar">
+        <div class="page-title">
+          <h2 id="page-title">Saadiyat Lagoons HSE Dashboard</h2>
+          <p id="page-description">Project safety performance overview across inspections, corrective actions, planning, and cluster monitoring.</p>
+        </div>
+      </div>
+
+      <section class="hero">
+        <div class="card">
+          <h2>Project HSE Performance Monitoring</h2>
+          <p>
+            Centralized overview of weekly inspections, priority CAPA actions, gap analysis, and dashboard performance across all clusters.
+          </p>
+          <div class="cta-row">
+            <a class="btn" href="dashboard.html">Open dashboards</a>
+            <a class="btn secondary" href="data-explorer.html">Browse all sheets</a>
+          </div>
+        </div>
+        <div class="grid kpis" id="hero-stats" style="grid-template-columns:1fr 1fr"></div>
+      </section>
+
+      <section class="split" style="margin-top:18px">
+        <div class="card">
+          <div class="section-title"><h3>Latest weekly inspections</h3><a class="small" href="inspections.html">Open full page</a></div>
+          <div id="latest-inspections"></div>
+        </div>
+        <div class="card">
+          <div class="section-title"><h3>Quick insights</h3></div>
+          <div class="stat-list" id="insight-list"></div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:18px">
+        <div class="section-title"><h3>Priority CAPA actions</h3><a class="small" href="capa.html">Open CAPA Tracker</a></div>
+        <div id="priority-actions"></div>
+      </section>
+    </main>
+  </div>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/index.js"></script>
+</body>
+</html>

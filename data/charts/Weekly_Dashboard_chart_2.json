@@ -1,0 +1,48 @@
+{
+  "sheet": "Weekly_Dashboard",
+  "chart_index": 2,
+  "chart_type": "BarChart",
+  "title": "Month Red Flags by Cluster",
+  "series": [
+    {
+      "name": "Month Red Flags",
+      "title_ref": "Weekly_Dashboard!$I$9",
+      "categories_ref": "Weekly_Dashboard!$A$10:$A$24",
+      "values_ref": "Weekly_Dashboard!$I$10:$I$24",
+      "categories": [
+        "Cluster 7A",
+        "Cluster 7B",
+        "Cluster 8A",
+        "Cluster 8B",
+        "Cluster 8C",
+        "Cluster 8D",
+        "Cluster 3",
+        "Cluster 4",
+        "Cluster 5",
+        "Cluster 6",
+        "Cluster 1A",
+        "Cluster 1B",
+        "Cluster 2A",
+        "Cluster 2B",
+        "Cluster 2C"
+      ],
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

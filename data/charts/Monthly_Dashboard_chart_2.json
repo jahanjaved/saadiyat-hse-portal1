@@ -1,0 +1,88 @@
+{
+  "sheet": "Monthly_Dashboard",
+  "chart_index": 2,
+  "chart_type": "BarChart",
+  "title": "Open vs Overdue Actions",
+  "series": [
+    {
+      "name": "Open Actions",
+      "title_ref": "Monthly_Dashboard!$J$7",
+      "categories_ref": "Monthly_Dashboard!$A$8:$A$22",
+      "values_ref": "Monthly_Dashboard!$J$8:$J$22",
+      "categories": [
+        "Cluster 7A",
+        "Cluster 7B",
+        "Cluster 8A",
+        "Cluster 8B",
+        "Cluster 8C",
+        "Cluster 8D",
+        "Cluster 3",
+        "Cluster 4",
+        "Cluster 5",
+        "Cluster 6",
+        "Cluster 1A",
+        "Cluster 1B",
+        "Cluster 2A",
+        "Cluster 2B",
+        "Cluster 2C"
+      ],
+      "values": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Overdue Actions",
+      "title_ref": "Monthly_Dashboard!$K$7",
+      "categories_ref": "Monthly_Dashboard!$A$8:$A$22",
+      "values_ref": "Monthly_Dashboard!$K$8:$K$22",
+      "categories": [
+        "Cluster 7A",
+        "Cluster 7B",
+        "Cluster 8A",
+        "Cluster 8B",
+        "Cluster 8C",
+        "Cluster 8D",
+        "Cluster 3",
+        "Cluster 4",
+        "Cluster 5",
+        "Cluster 6",
+        "Cluster 1A",
+        "Cluster 1B",
+        "Cluster 2A",
+        "Cluster 2B",
+        "Cluster 2C"
+      ],
+      "values": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}
