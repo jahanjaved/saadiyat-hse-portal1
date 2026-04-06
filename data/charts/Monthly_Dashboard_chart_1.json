@@ -1,0 +1,48 @@
+{
+  "sheet": "Monthly_Dashboard",
+  "chart_index": 1,
+  "chart_type": "BarChart",
+  "title": "Monthly Cluster Raw Score %",
+  "series": [
+    {
+      "name": "Month Avg Raw %",
+      "title_ref": "Monthly_Dashboard!$D$7",
+      "categories_ref": "Monthly_Dashboard!$A$8:$A$22",
+      "values_ref": "Monthly_Dashboard!$D$8:$D$22",
+      "categories": [
+        "Cluster 7A",
+        "Cluster 7B",
+        "Cluster 8A",
+        "Cluster 8B",
+        "Cluster 8C",
+        "Cluster 8D",
+        "Cluster 3",
+        "Cluster 4",
+        "Cluster 5",
+        "Cluster 6",
+        "Cluster 1A",
+        "Cluster 1B",
+        "Cluster 2A",
+        "Cluster 2B",
+        "Cluster 2C"
+      ],
+      "values": [
+        0.3933333333333333,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0.6066666666666667,
+        0.6266666666666667,
+        0.6466666666666666,
+        0.64,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ]
+}

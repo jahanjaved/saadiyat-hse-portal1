@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Saadiyat Lagoons HSE Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <h2>HSE</h2>
+      <p>Saadiyat Lagoons</p>
+    </div>
+
+    <nav>
+      <h4>Overview</h4>
+      <a href="index.html" class="active">Home</a>
+      <a href="dashboard.html">Dashboards</a>
+
+      <h4>Operations</h4>
+      <a href="inspections.html">Weekly Inspections</a>
+      <a href="capa.html">CAPA Tracker</a>
+      <a href="gap-analysis.html">Gap Analysis</a>
+
+      <h4>Planning</h4>
+      <a href="calendars.html">Monthly Calendars</a>
+      <a href="data-explorer.html">All Sheets Explorer</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Header -->
+    <header class="header">
+      <h1>Saadiyat Lagoons HSE Dashboard</h1>
+      <p>Project safety performance overview</p>
+    </header>
+
+    <!-- Main Card -->
+    <section class="card highlight">
+      <h2>Project HSE Performance Monitoring</h2>
+      <p>
+        Overview of inspections, CAPA actions, and safety performance across all clusters.
+      </p>
+
+      <div class="actions">
+        <a href="dashboard.html" class="btn primary">Open Dashboard</a>
+        <a href="data-explorer.html" class="btn">View All Data</a>
+      </div>
+    </section>
+
+    <!-- Content Grid -->
+    <section class="grid">
+
+      <!-- Weekly Inspections -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Latest Weekly Inspections</h3>
+          <a href="inspections.html">View All</a>
+        </div>
+        <div id="latest-inspections">
+          <!-- Data will load here -->
+        </div>
+      </div>
+
+      <!-- Quick Insights -->
+      <div class="card">
+        <div class="card-header">
+          <h3>Quick Insights</h3>
+        </div>
+        <div id="quick-insights">
+          <!-- Data will load here -->
+        </div>
+      </div>
+
+      <!-- CAPA -->
+      <div class="card full">
+        <div class="card-header">
+          <h3>Priority CAPA Actions</h3>
+          <a href="capa.html">Open Tracker</a>
+        </div>
+        <div id="capa-actions">
+          <!-- Data will load here -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
