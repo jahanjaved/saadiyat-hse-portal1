@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "selectedWeek": "Week 14",
+    "selectedMonth": "April",
+    "inspectionCount": 0,
+    "clusters": [
+      "Cluster 1",
+      "Cluster 2",
+      "Cluster 3"
+    ],
+    "notes": [
+      "Data synced from Excel",
+      "Update weekly"
+    ]
+  },
+  "weeklyInspections": [],
+  "capa": [],
+  "gapAnalysis": {
+    "kpis": [
+      {
+        "label": "Work at Height",
+        "field": "WAH",
+        "weekAvg": 0,
+        "monthAvg": 0,
+        "weekGapTo5": 0,
+        "monthGapTo5": 0
+      },
+      {
+        "label": "Scaffolding",
+        "field": "Scaffold",
+        "weekAvg": 0,
+        "monthAvg": 0,
+        "weekGapTo5": 0,
+        "monthGapTo5": 0
+      }
+    ],
+    "rootCauses": []
+  },
+  "weeklyDashboard": {
+    "clusters": []
+  },
+  "monthlyDashboard": {
+    "clusters": []
+  },
+  "heatmap": [],
+  "schedules": {},
+  "rawSheets": {}
+}
