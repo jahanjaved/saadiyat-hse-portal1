@@ -1,1 +1,0 @@
-Upload all extracted files and folders to GitHub. Keep the same folder structure. Refresh GitHub Pages after commit.
