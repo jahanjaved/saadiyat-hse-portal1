@@ -55,6 +55,7 @@ function nav(active) {
     </div>
   `;
 }
+
 function shell(active, title, sub) {
   const existingTopbar = document.querySelector('.topbar');
   if (existingTopbar) existingTopbar.remove();
@@ -73,6 +74,7 @@ function shell(active, title, sub) {
   `;
   return document.getElementById('content');
 }
+
 function renderTable(container, headers, rows) {
   container.innerHTML += `
     <div class="table-wrap">
@@ -102,12 +104,13 @@ const valueLabelPlugin = {
     const indexAxis = chart.options.indexAxis || 'x';
     const decimals = opts.decimals ?? 1;
     const suffix = opts.suffix ?? '';
-    const color = opts.color || '#ffffff';
+    const insideColor = opts.color || '#ffffff';
     const outsideColor = opts.outsideColor || '#dce9f7';
     const fontSize = opts.fontSize || 11;
     const fontWeight = opts.fontWeight || '700';
-    const inside = opts.inside !== false;
     const lineOffset = opts.lineOffset || 10;
+    const padding = opts.padding ?? 6;
+    const inside = opts.inside !== false;
 
     ctx.save();
     ctx.font = `${fontWeight} ${fontSize}px Inter, Segoe UI, Arial, sans-serif`;
@@ -120,55 +123,78 @@ const valueLabelPlugin = {
       meta.data.forEach((element, i) => {
         const rawValue = dataset.data[i];
         if (rawValue === null || rawValue === undefined || rawValue === '') return;
+
         const numericValue = Number(rawValue);
         if (!Number.isFinite(numericValue)) return;
 
         const label = formatChartValue(numericValue, decimals, suffix);
         if (!label) return;
 
-        let x;
-        let y;
+        let x = 0;
+        let y = 0;
         let textAlign = 'center';
-        let drawColor = color;
+        let fillStyle = insideColor;
 
         if (chartType === 'bar') {
           if (indexAxis === 'y') {
-            const barBase = element.base ?? 0;
-            const barX = element.x ?? 0;
-            x = inside ? (barBase + barX) / 2 : barX + 12;
-            y = element.y;
-            textAlign = inside ? 'center' : 'left';
-            drawColor = inside ? color : outsideColor;
+            const x1 = element.base;
+            const x2 = element.x;
+            const left = Math.min(x1, x2);
+            const right = Math.max(x1, x2);
+            const width = right - left;
+
+            if (inside && width > 24) {
+              x = left + width / 2;
+              y = element.y;
+              textAlign = 'center';
+              fillStyle = insideColor;
+            } else {
+              x = right + padding;
+              y = element.y;
+              textAlign = 'left';
+              fillStyle = outsideColor;
+            }
           } else {
-            const barBase = element.base ?? chart.chartArea.bottom;
-            const barY = element.y ?? 0;
-            x = element.x;
-            y = inside ? (barBase + barY) / 2 : barY - 10;
-            textAlign = 'center';
-            drawColor = inside ? color : outsideColor;
+            const y1 = element.base;
+            const y2 = element.y;
+            const top = Math.min(y1, y2);
+            const bottom = Math.max(y1, y2);
+            const height = bottom - top;
+
+            if (inside && height > 18) {
+              x = element.x;
+              y = top + height / 2;
+              textAlign = 'center';
+              fillStyle = insideColor;
+            } else {
+              x = element.x;
+              y = top - padding;
+              textAlign = 'center';
+              fillStyle = outsideColor;
+            }
           }
         } else if (chartType === 'line') {
           const pos = element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y };
           x = pos.x;
           y = pos.y - lineOffset;
           textAlign = 'center';
-          drawColor = outsideColor;
+          fillStyle = outsideColor;
         } else if (chartType === 'doughnut' || chartType === 'pie') {
           const pos = element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y };
           x = pos.x;
           y = pos.y;
           textAlign = 'center';
-          drawColor = color;
+          fillStyle = insideColor;
         } else {
           const pos = element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y };
           x = pos.x;
           y = pos.y;
           textAlign = 'center';
-          drawColor = outsideColor;
+          fillStyle = outsideColor;
         }
 
-        ctx.fillStyle = drawColor;
         ctx.textAlign = textAlign;
+        ctx.fillStyle = fillStyle;
         ctx.fillText(label, x, y);
       });
     });
@@ -212,6 +238,7 @@ function buildCombinedRedFlagDataset(data) {
     month: clusters.map(c => Number((monthly.find(x => x.cluster === c) || {}).redFlagsMonth || 0))
   };
 }
+
 function buildOpenVsOverdueDataset(data) {
   const map = new Map();
   (data.meta?.clusters || []).forEach(cluster => map.set(cluster, { cluster, open: 0, overdue: 0 }));
@@ -320,7 +347,7 @@ function buildDashboard(data) {
       ...baseChartOptions(),
       plugins: {
         ...baseChartOptions().plugins,
-        valueLabelPlugin: { enabled: true, inside: false, decimals: 1, suffix: '%', color: '#ffffff', outsideColor: '#dce9f7' }
+        valueLabelPlugin: { enabled: true, inside: true, decimals: 1, suffix: '%', color: '#ffffff', outsideColor: '#dce9f7' }
       },
       scales: {
         x: { ticks: { color: '#bfd2e9' } },
@@ -523,13 +550,32 @@ function buildRaw(data) {
 }
 
 (async function () {
-  const data = await loadData();
-  const page = location.pathname.split('/').pop() || 'index.html';
-  if (page === 'index.html') buildDashboard(data);
-  else if (page === 'inspections.html') buildInspections(data);
-  else if (page === 'capa.html') buildCapa(data);
-  else if (page === 'gap-analysis.html') buildGap(data);
-  else if (page === 'schedules.html') buildSchedules(data);
-  else if (page === 'raw-data.html') buildRaw(data);
-  else buildDashboard(data);
+  try {
+    const data = await loadData();
+    const page = location.pathname.split('/').pop() || 'index.html';
+    if (page === 'index.html') buildDashboard(data);
+    else if (page === 'inspections.html') buildInspections(data);
+    else if (page === 'capa.html') buildCapa(data);
+    else if (page === 'gap-analysis.html') buildGap(data);
+    else if (page === 'schedules.html') buildSchedules(data);
+    else if (page === 'raw-data.html') buildRaw(data);
+    else buildDashboard(data);
+  } catch (error) {
+    const root = document.getElementById('app');
+    if (root) {
+      root.innerHTML = `
+        <div class="container">
+          <div class="hero">
+            <div class="page-title">
+              <div>
+                <h1>Loading Error</h1>
+                <p>${esc(error.message)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    console.error(error);
+  }
 })();
