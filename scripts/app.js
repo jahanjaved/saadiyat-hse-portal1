@@ -1,4 +1,3 @@
-
 const DATA_PATH = 'data/site-data.json';
 
 async function loadData() {
@@ -84,12 +83,113 @@ function renderTable(container, headers, rows) {
     </div>
   `;
 }
+
+function formatChartValue(value, decimals = 1, suffix = '') {
+  if (value === null || value === undefined || value === '') return '';
+  const n = Number(value);
+  if (!Number.isFinite(n)) return '';
+  return `${n.toFixed(decimals)}${suffix}`;
+}
+
+const valueLabelPlugin = {
+  id: 'valueLabelPlugin',
+  afterDatasetsDraw(chart, args, pluginOptions) {
+    const opts = pluginOptions || {};
+    if (!opts.enabled) return;
+
+    const { ctx } = chart;
+    const chartType = chart.config.type;
+    const indexAxis = chart.options.indexAxis || 'x';
+    const decimals = opts.decimals ?? 1;
+    const suffix = opts.suffix ?? '';
+    const color = opts.color || '#ffffff';
+    const outsideColor = opts.outsideColor || '#dce9f7';
+    const fontSize = opts.fontSize || 11;
+    const fontWeight = opts.fontWeight || '700';
+    const inside = opts.inside !== false;
+    const lineOffset = opts.lineOffset || 10;
+
+    ctx.save();
+    ctx.font = `${fontWeight} ${fontSize}px Inter, Segoe UI, Arial, sans-serif`;
+    ctx.textBaseline = 'middle';
+
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      const meta = chart.getDatasetMeta(datasetIndex);
+      if (meta.hidden) return;
+
+      meta.data.forEach((element, i) => {
+        const rawValue = dataset.data[i];
+        if (rawValue === null || rawValue === undefined || rawValue === '') return;
+        const numericValue = Number(rawValue);
+        if (!Number.isFinite(numericValue)) return;
+
+        const label = formatChartValue(numericValue, decimals, suffix);
+        if (!label) return;
+
+        let x;
+        let y;
+        let textAlign = 'center';
+        let drawColor = color;
+
+        if (chartType === 'bar') {
+          if (indexAxis === 'y') {
+            const barBase = element.base ?? 0;
+            const barX = element.x ?? 0;
+            x = inside ? (barBase + barX) / 2 : barX + 12;
+            y = element.y;
+            textAlign = inside ? 'center' : 'left';
+            drawColor = inside ? color : outsideColor;
+          } else {
+            const barBase = element.base ?? chart.chartArea.bottom;
+            const barY = element.y ?? 0;
+            x = element.x;
+            y = inside ? (barBase + barY) / 2 : barY - 10;
+            textAlign = 'center';
+            drawColor = inside ? color : outsideColor;
+          }
+        } else if (chartType === 'line') {
+          const pos = element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y };
+          x = pos.x;
+          y = pos.y - lineOffset;
+          textAlign = 'center';
+          drawColor = outsideColor;
+        } else if (chartType === 'doughnut' || chartType === 'pie') {
+          const pos = element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y };
+          x = pos.x;
+          y = pos.y;
+          textAlign = 'center';
+          drawColor = color;
+        } else {
+          const pos = element.tooltipPosition ? element.tooltipPosition() : { x: element.x, y: element.y };
+          x = pos.x;
+          y = pos.y;
+          textAlign = 'center';
+          drawColor = outsideColor;
+        }
+
+        ctx.fillStyle = drawColor;
+        ctx.textAlign = textAlign;
+        ctx.fillText(label, x, y);
+      });
+    });
+
+    ctx.restore();
+  }
+};
+
+if (typeof Chart !== 'undefined') {
+  Chart.register(valueLabelPlugin);
+}
+
 function baseChartOptions() {
   return {
     responsive: true,
     maintainAspectRatio: false,
     animation: false,
-    plugins: { legend: { labels: { color: '#dce9f7' } } }
+    plugins: {
+      legend: { labels: { color: '#dce9f7' } },
+      valueLabelPlugin: { enabled: false }
+    }
   };
 }
 
@@ -216,7 +316,17 @@ function buildDashboard(data) {
         { label: 'Month Avg %', data: (data.weeklyDashboard?.clusters || []).map(cu => cu.monthAvgRawPct ? cu.monthAvgRawPct * 100 : null) }
       ]
     },
-    options: { ...baseChartOptions(), scales: { x: { ticks: { color: '#bfd2e9' } }, y: { beginAtZero: true, ticks: { color: '#bfd2e9' } } } }
+    options: {
+      ...baseChartOptions(),
+      plugins: {
+        ...baseChartOptions().plugins,
+        valueLabelPlugin: { enabled: true, inside: false, decimals: 1, suffix: '%', color: '#ffffff', outsideColor: '#dce9f7' }
+      },
+      scales: {
+        x: { ticks: { color: '#bfd2e9' } },
+        y: { beginAtZero: true, ticks: { color: '#bfd2e9' } }
+      }
+    }
   });
 
   new Chart(document.getElementById('kpiChart'), {
@@ -230,6 +340,10 @@ function buildDashboard(data) {
     },
     options: {
       ...baseChartOptions(),
+      plugins: {
+        ...baseChartOptions().plugins,
+        valueLabelPlugin: { enabled: true, decimals: 1, color: '#ffffff', outsideColor: '#dce9f7', lineOffset: 12 }
+      },
       scales: {
         x: { ticks: { color: '#bfd2e9', maxRotation: 0, minRotation: 0 } },
         y: { beginAtZero: true, suggestedMax: 5, ticks: { color: '#bfd2e9' } }
@@ -249,6 +363,10 @@ function buildDashboard(data) {
     options: {
       ...baseChartOptions(),
       indexAxis: 'y',
+      plugins: {
+        ...baseChartOptions().plugins,
+        valueLabelPlugin: { enabled: true, inside: true, decimals: 0, color: '#ffffff', outsideColor: '#dce9f7' }
+      },
       scales: {
         x: { beginAtZero: true, ticks: { color: '#bfd2e9', precision: 0 } },
         y: { ticks: { color: '#bfd2e9' } }
@@ -327,15 +445,48 @@ function buildGap(data) {
     ['Root Cause', 'Count'],
     (data.gapAnalysis?.rootCauses || []).map(r => [esc(r.rootCause), esc(r.count)])
   );
+
   new Chart(document.getElementById('gapChart'), {
     type: 'bar',
-    data: { labels: (data.gapAnalysis?.kpis || []).map(k => k.label), datasets: [{ label: 'Month Gap to 5', data: (data.gapAnalysis?.kpis || []).map(k => k.monthGapTo5) }] },
-    options: { ...baseChartOptions(), scales: { x: { ticks: { color: '#bfd2e9' } }, y: { beginAtZero: true, ticks: { color: '#bfd2e9' } } } }
+    data: {
+      labels: (data.gapAnalysis?.kpis || []).map(k => k.label),
+      datasets: [
+        {
+          label: 'Month Gap to 5',
+          data: (data.gapAnalysis?.kpis || []).map(k => k.monthGapTo5)
+        }
+      ]
+    },
+    options: {
+      ...baseChartOptions(),
+      plugins: {
+        ...baseChartOptions().plugins,
+        valueLabelPlugin: { enabled: true, inside: true, decimals: 1, color: '#ffffff', outsideColor: '#dce9f7' }
+      },
+      scales: {
+        x: { ticks: { color: '#bfd2e9' } },
+        y: { beginAtZero: true, ticks: { color: '#bfd2e9' } }
+      }
+    }
   });
+
   new Chart(document.getElementById('rootChart'), {
     type: 'doughnut',
-    data: { labels: (data.gapAnalysis?.rootCauses || []).map(r => r.rootCause), datasets: [{ data: (data.gapAnalysis?.rootCauses || []).map(r => r.count) }] },
-    options: baseChartOptions()
+    data: {
+      labels: (data.gapAnalysis?.rootCauses || []).map(r => r.rootCause),
+      datasets: [
+        {
+          data: (data.gapAnalysis?.rootCauses || []).map(r => r.count)
+        }
+      ]
+    },
+    options: {
+      ...baseChartOptions(),
+      plugins: {
+        ...baseChartOptions().plugins,
+        valueLabelPlugin: { enabled: true, decimals: 0, color: '#ffffff', outsideColor: '#dce9f7' }
+      }
+    }
   });
 }
 
@@ -372,31 +523,13 @@ function buildRaw(data) {
 }
 
 (async function () {
-  try {
-    const data = await loadData();
-    const page = location.pathname.split('/').pop() || 'index.html';
-    if (page === 'index.html') buildDashboard(data);
-    else if (page === 'inspections.html') buildInspections(data);
-    else if (page === 'capa.html') buildCapa(data);
-    else if (page === 'gap-analysis.html') buildGap(data);
-    else if (page === 'schedules.html') buildSchedules(data);
-    else if (page === 'raw-data.html') buildRaw(data);
-    else buildDashboard(data);
-  } catch (err) {
-    console.error(err);
-    const app = document.getElementById('app');
-    if (app) {
-      app.innerHTML = `
-        <div class="container" style="padding-top:40px;">
-          <div class="card">
-            <h2>Dashboard failed to load</h2>
-            <p>Please confirm these folders exist in GitHub exactly as named:</p>
-            <div class="pre">/assets/styles.css
-/scripts/app.js
-/data/site-data.json</div>
-            <p class="muted">${esc(err.message || 'Unknown error')}</p>
-          </div>
-        </div>`;
-    }
-  }
+  const data = await loadData();
+  const page = location.pathname.split('/').pop() || 'index.html';
+  if (page === 'index.html') buildDashboard(data);
+  else if (page === 'inspections.html') buildInspections(data);
+  else if (page === 'capa.html') buildCapa(data);
+  else if (page === 'gap-analysis.html') buildGap(data);
+  else if (page === 'schedules.html') buildSchedules(data);
+  else if (page === 'raw-data.html') buildRaw(data);
+  else buildDashboard(data);
 })();
