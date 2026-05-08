@@ -1,1 +1,0 @@
-Upload all files/folders to GitHub repository root. Required folders: assets, scripts, data. Removed pages: Weekly Inspections, Schedules, All Sheets. Removed all Cluster 3, 4, 5, 6 records from data and calculations.
